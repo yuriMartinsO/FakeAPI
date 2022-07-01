@@ -4,4 +4,4 @@ from .models import Endpoint
 class EndpointForm(ModelForm):
 	class Meta:
 		model = Endpoint
-		fields = ['metodo_http', 'tipo_retorno', 'retorno']
+		fields = ['endpoint', 'status_code', 'metodo_http', 'tipo_retorno', 'retorno']
