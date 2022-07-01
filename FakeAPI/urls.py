@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from endpoint_manager.views import home
+from endpoint_manager.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home)
+    path('', home, name='index'),
+    path('novoendpoint', novo_endpoint)
 ]

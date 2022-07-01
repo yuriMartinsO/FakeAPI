@@ -26,7 +26,7 @@ class Endpoint(models.Model):
         ('POST', MetodosRequisicao.POST.value),
         ('PUT', MetodosRequisicao.PUT.value),
         ('DELETE', MetodosRequisicao.DELETE.value),
-        ('PATCH', MetodosRequisicao.PATCH)
+        ('PATCH', MetodosRequisicao.PATCH.value)
     )
 
 	TIPO_RETORNO = (
