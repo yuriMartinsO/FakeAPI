@@ -9,6 +9,8 @@
 	<h1>Olá, Mundo!</h1>
     <p>Agora são: {{now}}</p>
 
+	{{api_url}}    
+
 {% if messages %}
     {% for message in messages %}
         <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
