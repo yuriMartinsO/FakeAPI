@@ -7,15 +7,16 @@ import uuid
 # Create your views here.
 def home(request):
 	data = {}
-	data['api_url'] = generate_api_url(request)
+	data['base_route'] = genarate_base_route(request)
 
 	return render(request, 'endpoint_manager/home.html', data)
 
-def novo_endpoint(request):
+def novo_endpoint(request):	
 	data = {}
 
 	form = EndpointForm(request.POST or None)
 	if form.is_valid():
+		form.instance.base_route = genarate_base_route(request)
 		form.save()
 		messages.success(request, 'Endpoint cadastrado com sucesso')
 		return redirect('/')
@@ -24,14 +25,14 @@ def novo_endpoint(request):
 
 	return render(request, 'endpoint_manager/novoendpoint_pagina.html', data)
 
-def generate_api_url(request):
-	if 'api_url' not in request.session:
-		request.session['api_url'] = id_generator()
+def genarate_base_route(request):
+	if 'base_route' not in request.session:
+		request.session['base_route'] = uuid_generator()
 
 	# Pega o valor da sessão, seta o valor da chave como padrão se  não estiver presente.
-	return request.session['api_url']
+	return request.session['base_route']
 
-def id_generator(string_length=10):
+def uuid_generator(string_length=10):
 	"""Returns a random string of length string_length."""
 	random = str(uuid.uuid4()) # Convert UUID format to a Python string.
 	random = random.upper() # Make all characters uppercase.
