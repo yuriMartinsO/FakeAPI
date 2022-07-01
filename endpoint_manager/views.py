@@ -31,7 +31,7 @@ def generate_api_url(request):
 	# Pega o valor da sessão, seta o valor da chave como padrão se  não estiver presente.
 	return request.session['api_url']
 
-def id_generator(string_length=60):
+def id_generator(string_length=10):
 	"""Returns a random string of length string_length."""
 	random = str(uuid.uuid4()) # Convert UUID format to a Python string.
 	random = random.upper() # Make all characters uppercase.
