@@ -34,7 +34,7 @@ class Endpoint(models.Model):
 		('XML', RetornosRequisicao.XML.value)
 	)
 
-	endpoint = models.CharField(max_length=120, default='', unique=True)
+	endpoint = models.CharField(max_length=90, default='', unique=True)
 	status_code = models.IntegerField(default=200)
 	metodo_http = models.CharField(max_length=10, choices=METODOS_REQUISICAO, default=MetodosRequisicao.GET.value)
 	tipo_retorno = models.CharField(max_length=10, choices=TIPO_RETORNO, default=RetornosRequisicao.JSON.value)
