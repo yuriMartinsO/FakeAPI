@@ -21,5 +21,6 @@ from endpoint_manager.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='index'),
-    path('novoendpoint', novo_endpoint)
+    path('novoendpoint', novo_endpoint),
+    path('removertodosendpoints', remover_endpoints)
 ]

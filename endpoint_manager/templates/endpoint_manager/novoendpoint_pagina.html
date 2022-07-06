@@ -1,11 +1,32 @@
-{% if form.errors %}
-    <div class="alert alert-danger">
-        {{ form.errors }}
+<html>
+{% include "endpoint_manager/head.html" %}
+<body>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+    <div class="container mt-5 text-center bg-white p-4 rounded-3 shadow">
+        <h1>Cadastrar novo endpoint</h1>
     </div>
-{% endif %}
-
-<form method="POST">
-	{% csrf_token %}
-	{{form}}
-	<button type="submit">Salvar</button>
-</form>
+    <div class="container mt-5">
+        <form method="POST" style="max-width: 369px;margin-left: auto;margin-right: auto;">
+            {% csrf_token %}
+            <div class="row">
+                {% for field in form %}
+                <div class="col-12">
+                    <div class="mb-3 float-start">
+                        <div><label for="id_{{ field.name }}" class="form-label">{{ field.label }}</label></div>
+                        {{ field }} 
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="mb-3 float-start">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,17 +1,38 @@
 from datetime import datetime
+from django.conf import settings
 from django.shortcuts import render, redirect
+from .models import Endpoint
 from .forms import EndpointForm
 from django.contrib import messages
 import uuid
+import pdb
 
 # Create your views here.
 def home(request):
 	data = {}
 	data['base_route'] = genarate_base_route(request)
+	data['site_url'] = settings.SITE_URL
 
 	return render(request, 'endpoint_manager/home.html', data)
 
-def novo_endpoint(request):	
+def remover_endpoints(request):
+	if 'base_route' not in request.session:
+		messages.error(request, 'Erro na busca de endpoints', extra_tags='danger')
+		return redirect('/')
+
+	# request.session['base_route']
+	objects = Endpoint.objects.filter(base_route=request.session['base_route'])
+	objects_number = objects.count()
+
+	if objects_number <= 0:
+		messages.error(request, 'Não há endpoints para excluir', extra_tags='danger')
+		return redirect('/')
+
+	objects.delete()
+	messages.success(request, 'Endpoint(s) excluído(s) com sucesso')
+	return redirect('/')
+
+def novo_endpoint(request):
 	data = {}
 
 	form = EndpointForm(request.POST or None)
