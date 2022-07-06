@@ -18,12 +18,12 @@ class RetornosRequisicao(Enum):
 
 class Endpoint(models.Model):
 	METODOS_REQUISICAO = (
-        ('GET', MetodosRequisicao.GET.value),
-        ('POST', MetodosRequisicao.POST.value),
-        ('PUT', MetodosRequisicao.PUT.value),
-        ('DELETE', MetodosRequisicao.DELETE.value),
-        ('PATCH', MetodosRequisicao.PATCH.value)
-    )
+		('GET', MetodosRequisicao.GET.value),
+		('POST', MetodosRequisicao.POST.value),
+		('PUT', MetodosRequisicao.PUT.value),
+		('DELETE', MetodosRequisicao.DELETE.value),
+		('PATCH', MetodosRequisicao.PATCH.value)
+	)
 
 	TIPO_RETORNO = (
 		('JSON', RetornosRequisicao.JSON.value),
