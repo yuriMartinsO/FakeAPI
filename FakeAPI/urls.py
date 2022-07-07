@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='index'),
     path('novoendpoint', novo_endpoint),
-    path('removertodosendpoints', remover_endpoints)
+    path('removerendpoints', remover_endpoints)
 ]

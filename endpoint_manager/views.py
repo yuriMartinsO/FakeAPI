@@ -13,6 +13,9 @@ def home(request):
 	data['base_route'] = genarate_base_route(request)
 	data['site_url'] = settings.SITE_URL
 
+	endpoints = Endpoint.objects.filter(base_route=data['base_route'])
+	data['endpoints'] = endpoints
+
 	return render(request, 'endpoint_manager/home.html', data)
 
 def remover_endpoints(request):
@@ -20,8 +23,11 @@ def remover_endpoints(request):
 		messages.error(request, 'Erro na busca de endpoints', extra_tags='danger')
 		return redirect('/')
 
-	# request.session['base_route']
-	objects = Endpoint.objects.filter(base_route=request.session['base_route'])
+	if request.GET.get('id'):
+		objects = Endpoint.objects.filter(base_route=request.session['base_route'], id=request.GET.get('id'))
+	else:
+		objects = Endpoint.objects.filter(base_route=request.session['base_route'])
+
 	objects_number = objects.count()
 
 	if objects_number <= 0:
