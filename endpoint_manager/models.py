@@ -1,3 +1,4 @@
+from datetime import datetime
 from operator import mod
 from pyexpat import model
 from django.db import models
@@ -36,3 +37,4 @@ class Endpoint(models.Model):
 	metodo_http = models.CharField(max_length=10, choices=METODOS_REQUISICAO, default=MetodosRequisicao.GET.value)
 	tipo_retorno = models.CharField(max_length=10, choices=TIPO_RETORNO, default=RetornosRequisicao.JSON.value)
 	retorno = models.TextField()
+	created_at = models.DateTimeField(auto_now_add=True, blank=True)

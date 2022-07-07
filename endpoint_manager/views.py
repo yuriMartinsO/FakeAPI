@@ -1,7 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.conf import settings
 from django.shortcuts import render, redirect
 from .models import Endpoint
+from django.db.models import Q
 from .forms import EndpointForm
 from django.contrib import messages
 import uuid
@@ -9,6 +10,8 @@ import pdb
 
 # Create your views here.
 def home(request):
+	remover_endpoints_antigos()
+
 	data = {}
 	data['base_route'] = genarate_base_route(request)
 	data['site_url'] = settings.SITE_URL
@@ -17,6 +20,12 @@ def home(request):
 	data['endpoints'] = endpoints
 
 	return render(request, 'endpoint_manager/home.html', data)
+
+def remover_endpoints_antigos():
+	hoje = datetime.now().date()
+	dataAntiga = hoje - timedelta(7)
+	objects = Endpoint.objects.filter(Q(created_at__lt=dataAntiga) | Q(created_at__isnull=True))
+	objects.delete()
 
 def remover_endpoints(request):
 	if 'base_route' not in request.session:
