@@ -4,7 +4,7 @@
 <body class="bg-light">
 	<div class="container mt-4 text-center bg-white p-4 rounded-3 shadow">
 		<h1>FakeApi</h1>
-		<input type="text" class="form-control text-center" id="base_route" value="{{site_url}}/{{base_route}}" readonly>
+		<input type="text" class="form-control text-center" id="base_route" value="{{site_url}}/api/{{base_route}}" readonly>
 	</div>    
 
 	{% if messages %}
@@ -54,7 +54,7 @@
 							</h2>
 							<div id="panelsCalapseEndpoint-{{ endpoint.id }}" class="accordion-collapse collapse" aria-labelledby="panelsEndpoint-{{ endpoint.id }}">
 								<div class="accordion-body">
-									<label for="Resposta" class="form-label">Retorno</label>
+									<label for="Resposta" class="form-label">Retorno ({{ endpoint.status_code }})</label>
 									<textarea class="form-control" id="Resposta" rows="3" readonly>{{ endpoint.retorno }}</textarea>
 								</div>
 							</div>

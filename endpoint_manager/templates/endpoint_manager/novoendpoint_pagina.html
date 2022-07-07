@@ -1,33 +1,65 @@
 <html>
 
 {% include "endpoint_manager/head.html" %}
-<body>
+<body class="bg-light">
     {% if form.errors %}
         <div class="alert alert-danger">
             {{ form.errors }}
         </div>
     {% endif %}
-    <div class="container mt-5 text-center bg-white p-4 rounded-3 shadow">
-        <h1>Cadastrar novo endpoint</h1>
-    </div>
-    <div class="container mt-5">
-        <form method="POST" style="max-width: 369px;margin-left: auto;margin-right: auto;">
-            {% csrf_token %}
-            <div class="row">
-                {% for field in form %}
-                <div class="col-12">
-                    <div class="mb-3 float-start">
-                        <div><label for="id_{{ field.name }}" class="form-label">{{ field.label }}</label></div>
-                        {{ field }} 
-                    </div>
+    <div class="container mt-4 mb-4 bg-white p-4 rounded-3 shadow">
+        <div style="max-width: 480px;margin: auto;">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div>
+                    <a href="/" class="btn btn-light">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Voltar
+                    </a>
                 </div>
-                {% endfor %}
+                <h1 class="text-center mt-2 mb-2">Novo Endpoint</h1>
             </div>
             
-            <div class="mb-3 float-start">
-                <button type="submit" class="btn btn-primary">Salvar</button>
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for field in form %}
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <div><label for="id_{{ field.name }}" class="form-label">{{ field.label }}</label></div>
+                                {{ field }} 
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Salvar
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        
+        $('input, textarea, select').addClass('form-control');
+        $('#id_endpoint').on('input', function () {
+            let endpoint = $('#id_endpoint').val()
+            let primeiroCaractere =  endpoint.charAt(0)
+            
+            if (primeiroCaractere == '/') {
+                endpoint = endpoint.substring(1)
+            }
+
+            $('#id_endpoint').val(endpoint)
+        })
+    </script>
+
 </body>
 </html>

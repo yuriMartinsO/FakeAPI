@@ -24,5 +24,5 @@ urlpatterns = [
     path('', home, name='index'),
     path('novoendpoint', novo_endpoint),
     path('removerendpoints', remover_endpoints),
-    re_path(r'base_url/.+', endpoint_retorno),
+    re_path(r'api/.+', endpoint_retorno),
 ]

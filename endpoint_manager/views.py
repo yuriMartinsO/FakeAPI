@@ -6,7 +6,8 @@ from django.db.models import Q
 from .forms import EndpointForm
 from django.contrib import messages
 import uuid
-from django.http import HttpResponseNotFound, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponseNotFound, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 import pdb
 import json
 
@@ -29,7 +30,7 @@ def remover_endpoints_antigos():
 	objects = Endpoint.objects.filter(Q(created_at__lt=dataAntiga) | Q(created_at__isnull=True))
 	objects.delete()
 
-
+@csrf_exempt
 def endpoint_retorno(request):
 	paths = request.get_full_path().split('/')
 	del paths[0]
@@ -40,7 +41,11 @@ def endpoint_retorno(request):
 
 	endpoint_request = '/'.join(paths)
 
-	endpoint = Endpoint.objects.filter(endpoint=endpoint_request, base_route=base_url_request).first()
+	endpoint = Endpoint.objects.filter(
+		endpoint=endpoint_request,
+		base_route=base_url_request,
+		metodo_http=request.method
+	).first()
 
 	if not endpoint:
 		return HttpResponseNotFound()
@@ -50,8 +55,6 @@ def endpoint_retorno(request):
 		content_type_result = 'application/xml'
 
 	return HttpResponse(endpoint.retorno, content_type=content_type_result, status=endpoint.status_code)
-
-	# return redirect('/')
 
 def remover_endpoints(request):
 	if 'base_route' not in request.session:
