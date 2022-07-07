@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku
+# import django_heroku
 
 # Base Url
 SITE_URL = 'https://fake-api-dy.herokuapp.com'
@@ -126,4 +126,4 @@ STATIC_URL = '/static/'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
