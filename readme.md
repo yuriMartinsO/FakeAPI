@@ -16,4 +16,4 @@ Este projeto visa criar endpoints para testes de requisições
   - `python3 manage.py migrate`
 - Digite o seguinte comando para iniciar o servidor Django: `python3 manage.py runserver`
 
-![localhost_8000_](https://user-images.githubusercontent.com/58126824/177677556-83a85e9f-468e-4b47-b64d-47672af07ed8.png)
+![localhost_8000_ (1)](https://user-images.githubusercontent.com/58126824/177678304-9de6d7ba-f1c9-460c-82cc-33edb1c2a493.png)
