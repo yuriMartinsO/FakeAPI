@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import re_path, include
 
 from endpoint_manager.views import *
 
@@ -22,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='index'),
     path('novoendpoint', novo_endpoint),
-    path('removerendpoints', remover_endpoints)
+    path('removerendpoints', remover_endpoints),
+    re_path(r'base_url/.+', endpoint_retorno),
 ]

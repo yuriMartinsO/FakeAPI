@@ -1,12 +1,14 @@
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.shortcuts import render, redirect
-from .models import Endpoint
+from .models import *
 from django.db.models import Q
 from .forms import EndpointForm
 from django.contrib import messages
 import uuid
+from django.http import HttpResponseNotFound, HttpResponse
 import pdb
+import json
 
 # Create your views here.
 def home(request):
@@ -26,6 +28,30 @@ def remover_endpoints_antigos():
 	dataAntiga = hoje - timedelta(7)
 	objects = Endpoint.objects.filter(Q(created_at__lt=dataAntiga) | Q(created_at__isnull=True))
 	objects.delete()
+
+
+def endpoint_retorno(request):
+	paths = request.get_full_path().split('/')
+	del paths[0]
+	del paths[0]
+
+	base_url_request = paths[0]
+	del paths[0]
+
+	endpoint_request = '/'.join(paths)
+
+	endpoint = Endpoint.objects.filter(endpoint=endpoint_request, base_route=base_url_request).first()
+
+	if not endpoint:
+		return HttpResponseNotFound()
+
+	content_type_result = 'application/json'
+	if endpoint.tipo_retorno == RetornosRequisicao.XML.value:
+		content_type_result = 'application/xml'
+
+	return HttpResponse(endpoint.retorno, content_type=content_type_result, status=endpoint.status_code)
+
+	# return redirect('/')
 
 def remover_endpoints(request):
 	if 'base_route' not in request.session:
