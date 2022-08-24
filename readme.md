@@ -1,5 +1,4 @@
 # Projeto FakeAPI
-
 Este projeto visa criar endpoints para testes de requisições
 
 # Requisitos
